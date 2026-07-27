@@ -20,7 +20,7 @@ export default function ScanPage() {
 
   // Check backend connectivity on mount
   useEffect(() => {
-    axios.get(`${API}/api/stats`, { timeout: 3000 })
+    axios.get(`${API}/api/stats`, { timeout: 60000 })
       .then(() => setBackendOk(true))
       .catch(() => setBackendOk(false));
   }, []);
@@ -97,7 +97,7 @@ export default function ScanPage() {
         {backendOk === false && (
           <div style={{ marginTop: '10px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '8px', padding: '10px 14px' }}>
             <p style={{ color: '#f87171', fontSize: '13px', margin: 0 }}>
-              ⚠️ Backend is not running. Double-click <strong>start.bat</strong> in the project folder to start everything automatically.
+              ⚠️ Backend is currently asleep or unreachable. Render's free servers sleep after 15 minutes of inactivity and take about 50 seconds to wake up. Please wait a minute and refresh the page!
             </p>
           </div>
         )}
