@@ -62,7 +62,7 @@ export default function ScanPage() {
     } catch (e) {
       clearInterval(interval);
       if (!e.response) {
-        setError('Cannot reach the backend server. Make sure to run start.bat first, then wait 20 seconds before scanning.');
+        setError('Cannot reach the backend server. It might be sleeping—please wait a minute and try again.');
       } else {
         setError(e.response?.data?.error || 'Scan failed. The target URL may be unreachable.');
       }
