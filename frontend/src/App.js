@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { HashRouter as BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ScanPage from './pages/ScanPage';
 import ResultsPage from './pages/ResultsPage';

@@ -2,6 +2,7 @@
   "name": "web-vuln-dashboard-frontend",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://RakeshMH2003.github.io/web-vuln-dashboard",
   "dependencies": {
     "ajv": "^8.20.0",
     "axios": "^1.7.7",
@@ -11,11 +12,14 @@
     "recharts": "^2.12.7"
   },
   "devDependencies": {
+    "gh-pages": "^6.0.0",
     "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": {
     "production": [
