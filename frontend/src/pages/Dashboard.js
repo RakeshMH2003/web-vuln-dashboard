@@ -4,6 +4,8 @@ import axios from 'axios';
 import { StatCard } from '../components/Components';
 import { useNavigate } from 'react-router-dom';
 
+const API = 'http://localhost:5000';
+
 const COLORS = { Critical: '#ef4444', High: '#f97316', Medium: '#eab308', Low: '#22c55e' };
 
 export default function Dashboard() {
@@ -12,8 +14,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/stats').then(r => setStats(r.data)).catch(() => {});
-    axios.get('/api/scans').then(r => setScans(r.data)).catch(() => {});
+    axios.get(`${API}/api/stats`).then(r => setStats(r.data)).catch(() => {});
+    axios.get(`${API}/api/scans`).then(r => setScans(r.data)).catch(() => {});
   }, []);
 
   const pieData = stats ? Object.entries(stats.by_severity).map(([name, value]) => ({ name, value })).filter(d => d.value > 0) : [];

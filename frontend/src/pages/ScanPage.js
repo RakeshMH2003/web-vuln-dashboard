@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+const API = 'http://localhost:5000';
 
 const EXAMPLE_TARGETS = [
   'http://testphp.vulnweb.com',
@@ -13,7 +15,15 @@ export default function ScanPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [step, setStep] = useState('');
+  const [backendOk, setBackendOk] = useState(null);
   const navigate = useNavigate();
+
+  // Check backend connectivity on mount
+  useEffect(() => {
+    axios.get(`${API}/api/stats`, { timeout: 3000 })
+      .then(() => setBackendOk(true))
+      .catch(() => setBackendOk(false));
+  }, []);
 
   const steps = [
     'Connecting to target...',
@@ -46,12 +56,17 @@ export default function ScanPage() {
     }, 1400);
 
     try {
-      const res = await axios.post('/api/scan', { url });
+      const res = await axios.post(`${API}/api/scan`, { url }, { timeout: 120000 });
       clearInterval(interval);
       navigate(`/results/${res.data.scan_id}`);
     } catch (e) {
       clearInterval(interval);
-      setError(e.response?.data?.error || 'Scan failed. Make sure the URL is reachable and the backend is running.');
+      if (!e.response) {
+        setError('Cannot reach the backend server. Make sure to run start.bat first, then wait 20 seconds before scanning.');
+      } else {
+        setError(e.response?.data?.error || 'Scan failed. The target URL may be unreachable.');
+      }
+      setBackendOk(false);
       setLoading(false);
     }
   };
@@ -59,9 +74,36 @@ export default function ScanPage() {
   return (
     <div style={{ maxWidth: '680px', margin: '0 auto' }}>
       <div style={{ marginBottom: '32px' }}>
-        <h1 style={{ color: '#f1f5f9', fontSize: '24px', fontWeight: 700, marginBottom: '6px' }}>New Vulnerability Scan</h1>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
+          <h1 style={{ color: '#f1f5f9', fontSize: '24px', fontWeight: 700, marginBottom: '6px' }}>New Vulnerability Scan</h1>
+          {/* Backend status pill */}
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '6px',
+            background: backendOk === false ? 'rgba(239,68,68,0.1)' : backendOk === true ? 'rgba(74,222,128,0.1)' : 'rgba(100,116,139,0.1)',
+            border: `1px solid ${backendOk === false ? 'rgba(239,68,68,0.3)' : backendOk === true ? 'rgba(74,222,128,0.3)' : 'rgba(100,116,139,0.3)'}`,
+            borderRadius: '20px', padding: '4px 12px',
+          }}>
+            <div style={{
+              width: '7px', height: '7px', borderRadius: '50%',
+              background: backendOk === false ? '#ef4444' : backendOk === true ? '#4ade80' : '#64748b',
+              animation: backendOk === true ? 'pulse 2s infinite' : 'none',
+            }} />
+            <span style={{ fontSize: '12px', fontWeight: 600, color: backendOk === false ? '#f87171' : backendOk === true ? '#4ade80' : '#64748b' }}>
+              {backendOk === null ? 'Connecting...' : backendOk ? 'Backend Online' : 'Backend Offline'}
+            </span>
+          </div>
+        </div>
         <p style={{ color: '#64748b', fontSize: '14px' }}>Enter a URL to scan for common web vulnerabilities</p>
+        {backendOk === false && (
+          <div style={{ marginTop: '10px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', borderRadius: '8px', padding: '10px 14px' }}>
+            <p style={{ color: '#f87171', fontSize: '13px', margin: 0 }}>
+              ⚠️ Backend is not running. Double-click <strong>start.bat</strong> in the project folder to start everything automatically.
+            </p>
+          </div>
+        )}
+        <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }`}</style>
       </div>
+
 
       <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '16px', padding: '32px' }}>
         <label style={{ color: '#94a3b8', fontSize: '13px', fontWeight: 600, display: 'block', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>

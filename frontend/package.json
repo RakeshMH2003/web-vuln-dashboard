@@ -2,7 +2,7 @@
   "name": "web-vuln-dashboard-frontend",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://RakeshMH2003.github.io/web-vuln-dashboard",
+  "homepage": ".",
   "dependencies": {
     "ajv": "^8.20.0",
     "axios": "^1.7.7",

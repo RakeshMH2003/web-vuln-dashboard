@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SeverityBadge, FindingCard, RiskScore } from '../components/Components';
 
+const API = 'http://localhost:5000';
+
 const SEV_ORDER = { Critical: 0, High: 1, Medium: 2, Low: 3 };
 const SEV_COLORS = { Critical: '#f87171', High: '#fb923c', Medium: '#facc15', Low: '#4ade80' };
 
@@ -70,7 +72,7 @@ export default function ResultsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`/api/scans/${scanId}`)
+    axios.get(`${API}/api/scans/${scanId}`)
       .then(r => { setData(r.data); setLoading(false); })
       .catch(() => { setLoading(false); });
   }, [scanId]);

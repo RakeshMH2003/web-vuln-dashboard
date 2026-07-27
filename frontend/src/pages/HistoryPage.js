@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const API = 'http://localhost:5000';
+
 export default function HistoryPage() {
   const [scans, setScans] = useState([]);
   const navigate = useNavigate();
 
-  const fetchScans = () => axios.get('/api/scans').then(r => setScans(r.data)).catch(() => {});
+  const fetchScans = () => axios.get(`${API}/api/scans`).then(r => setScans(r.data)).catch(() => {});
   useEffect(() => { fetchScans(); }, []);
 
   const deleteScan = async (id) => {
     if (!window.confirm('Delete this scan?')) return;
-    await axios.delete(`/api/scans/${id}`);
+    await axios.delete(`${API}/api/scans/${id}`);
     fetchScans();
   };
 
