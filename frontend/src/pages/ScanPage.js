@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API = 'http://localhost:5000';
+const API = 'https://web-vuln-dashboard-lqso.onrender.com';
 
 const EXAMPLE_TARGETS = [
   'http://testphp.vulnweb.com',

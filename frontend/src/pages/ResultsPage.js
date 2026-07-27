@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SeverityBadge, FindingCard, RiskScore } from '../components/Components';
 
-const API = 'http://localhost:5000';
+const API = 'https://web-vuln-dashboard-lqso.onrender.com';
 
 const SEV_ORDER = { Critical: 0, High: 1, Medium: 2, Low: 3 };
 const SEV_COLORS = { Critical: '#f87171', High: '#fb923c', Medium: '#facc15', Low: '#4ade80' };

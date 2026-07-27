@@ -4,7 +4,7 @@ import axios from 'axios';
 import { StatCard } from '../components/Components';
 import { useNavigate } from 'react-router-dom';
 
-const API = 'http://localhost:5000';
+const API = 'https://web-vuln-dashboard-lqso.onrender.com';
 
 const COLORS = { Critical: '#ef4444', High: '#f97316', Medium: '#eab308', Low: '#22c55e' };
 

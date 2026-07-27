@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API = 'http://localhost:5000';
+const API = 'https://web-vuln-dashboard-lqso.onrender.com';
 
 export default function HistoryPage() {
   const [scans, setScans] = useState([]);
