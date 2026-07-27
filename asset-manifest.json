@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/web-vuln-dashboard/static/js/main.e04d288d.js",
-    "index.html": "/web-vuln-dashboard/index.html",
-    "main.e04d288d.js.map": "/web-vuln-dashboard/static/js/main.e04d288d.js.map"
+    "main.js": "./static/js/main.7f11db8a.js",
+    "index.html": "./index.html",
+    "main.7f11db8a.js.map": "./static/js/main.7f11db8a.js.map"
   },
   "entrypoints": [
-    "static/js/main.e04d288d.js"
+    "static/js/main.7f11db8a.js"
   ]
 }
