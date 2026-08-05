@@ -2,6 +2,7 @@
 
 A full-stack web security scanner dashboard built as a 3rd year student project. It scans websites for common vulnerabilities and displays results in an interactive dashboard.
 
+#@ demo :- https://rakeshmh2003.github.io/web-vuln-dashboard/
 ## Features
 
 - **13 Vulnerability Checks:** SSL/TLS, Security Headers, XSS, SQL Injection, Sensitive Paths, Cookie Security, Info Disclosure, Missing SRI, Directory Listing, CORS, Open Ports, robots.txt Paths, Hidden Form Fields
